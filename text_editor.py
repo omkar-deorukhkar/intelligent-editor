@@ -18,11 +18,13 @@ def NewFile():
     txt.delete(0.0,END)
     
 def Openfile():
-    f = filedialog.askopenfile(mode='r')
+    global fname
+    fname = filedialog.askopenfilename()
+    f = open(fname,mode='r')
     t = f.read()
     txt.delete(0.0, END)
     txt.insert(0.0,t)
-    fname = f
+
 def Sas():
     f = filedialog.asksaveasfile(mode='w',defaultextension='.txt')
     print(f)
@@ -35,8 +37,9 @@ def Sas():
 def save_f():
     global fname
     t = txt.get(0.0,END)
+    print(fname)
     f = open(fname,'w')
-    f.write()
+    f.write(t)
     f.close()
 
 
