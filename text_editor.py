@@ -5,11 +5,11 @@ fname = ''
 
 
 root = Tk()
-root.title("Omkar")
+root.title("Omkar-text_editor")
 root.minsize(width=500, height=500)
 root.maxsize(width=500, height=500)
 
-txt = Text(root, width=500, height=500)
+txt = Text(root, width=500, height=500,background="gray20",foreground="floral white",font="arial" )
 txt.pack()
 
 def NewFile():
@@ -52,7 +52,7 @@ menc.add_command(label ="New File", command=NewFile)
 menc.add_command(label ="Open File", command=Openfile)
 menc.add_command(label ="Save As", command=Sas)
 menc.add_command(label ="Save File", command=save_f)
-menc.add_command(label ="Close", command=root.quit)
+menc.add_command(label ="Close", command=root.destroy)
 
 mbar.add_cascade(label='Menu', menu=menc)
 
