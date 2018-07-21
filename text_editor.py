@@ -1,16 +1,25 @@
 from tkinter import *
 from tkinter import filedialog
+import speech_recognition as sr
+import pyaudio
+from gtts import gTTS
+import playsound
+import pyttsx3
+from recorder import record_audio
 
 fname = ''
 
 
 root = Tk()
-root.title("Omkar-text_editor")
+root.title("Omkar-Text_Editor")
+root.configure(background='black')
 root.minsize(width=500, height=500)
 root.maxsize(width=500, height=500)
 
-txt = Text(root, width=500, height=500,background="gray20",foreground="floral white",font="arial" )
+txt = Text(root, width=500, height=500, background='gray20', foreground='floral white',font='Arial 14 bold')
 txt.pack()
+
+
 
 def NewFile():
     global fname
@@ -21,6 +30,7 @@ def Openfile():
     global fname
     fname = filedialog.askopenfilename()
     f = open(fname,mode='r')
+    root.title("Omkar-text_editor  "+fname)
     t = f.read()
     txt.delete(0.0, END)
     txt.insert(0.0,t)
@@ -38,13 +48,45 @@ def save_f():
     global fname
     t = txt.get(0.0,END)
     print(fname)
-    f = open(fname,'w')
-    f.write(t)
-    f.close()
+    if fname=='':
+        Sas()
+    else:
+        f = open(fname,'w')
+        f.write(t)
+        f.close()
+    
+def sp_recog():
+    '''global fname
+    if fname=='':
+        fwrap=filedialog.asksaveasfile(mode='w',defaultextension='.txt')
+        fname = str(fwrap.name)'''
+    r = sr.Recognizer()
+    audio = filedialog.askopenfilename()
+    with sr.AudioFile(audio) as source:
+        txt_audio = r.record(source)
+    t=(str(r.recognize_google(txt_audio)))
+    txt.insert(END,t)
+    
 
+def mic():
+    record_audio()
+    r = sr.Recognizer()
+    audio = "C:\\Users\\Omkar\\Desktop\\file.wav"
+    with sr.AudioFile(audio) as source:
+        txt_audio = r.record(source)
+    t=(str(r.recognize_google(txt_audio)))
+    txt.insert(END,t)
+    
+    
+def narrate():
+    engine = pyttsx3.init(driverName='sapi5');
+    t = txt.get(0.0,END)
+    engine.setProperty('rate', 120)
+    engine.say(t);
+    engine.runAndWait() ;
 
-
-
+    
+    
 
 mbar = Menu(root)
 menc = Menu(mbar)
@@ -52,10 +94,14 @@ menc.add_command(label ="New File", command=NewFile)
 menc.add_command(label ="Open File", command=Openfile)
 menc.add_command(label ="Save As", command=Sas)
 menc.add_command(label ="Save File", command=save_f)
-menc.add_command(label ="Close", command=root.destroy)
+menc.add_command(label ="Audio Mode", command=sp_recog)
+menc.add_command(label ="Microphone Mode", command=mic)
+menc.add_command(label ="Narrate", command=narrate)
+#menc.add_command(label ="Close", command=root.close)
 
 mbar.add_cascade(label='Menu', menu=menc)
 
 root.config(menu=mbar)
+print(fname)
 root.mainloop()
 
