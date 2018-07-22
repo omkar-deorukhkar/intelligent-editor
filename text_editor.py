@@ -1,4 +1,5 @@
-# ~Omkar Deorukhkar
+# Omkar Deorukhkar
+
 from tkinter import *
 from tkinter import filedialog
 import speech_recognition as sr
@@ -7,18 +8,22 @@ from gtts import gTTS
 import playsound
 import pyttsx3
 from recorder import record_audio
+from googletrans import Translator
+
 
 fname = ''
 
 
 root = Tk()
-root.title("Omkar-Text_Editor")
+root.title("Intelligent-Editor")
 root.configure(background='black')
 root.minsize(width=500, height=500)
 root.maxsize(width=500, height=500)
+root.wm_iconbitmap("magichat.ico")
 
 txt = Text(root, width=500, height=500, background='gray20', foreground='floral white',font='Arial 14 bold')
 txt.pack()
+translator = Translator()
 
 
 
@@ -85,6 +90,17 @@ def narrate():
     engine.setProperty('rate', 120)
     engine.say(t);
     engine.runAndWait() ;
+    
+def convert():
+    record_audio()
+    r = sr.Recognizer()
+    audio = "C:\\Users\\Omkar\\Desktop\\file.wav"
+    with sr.AudioFile(audio) as source:
+        txt_audio = r.record(source)
+    t=(str(r.recognize_google(txt_audio)))
+    a=translator.translate(t,src='en',dest='hi')
+    txt.insert(END,a.text)
+    
 
     
     
@@ -98,6 +114,7 @@ menc.add_command(label ="Save File", command=save_f)
 menc.add_command(label ="Audio Mode", command=sp_recog)
 menc.add_command(label ="Microphone Mode", command=mic)
 menc.add_command(label ="Narrate", command=narrate)
+menc.add_command(label ="Hindi Coverter", command=convert)
 #menc.add_command(label ="Close", command=root.close)
 
 mbar.add_cascade(label='Menu', menu=menc)
