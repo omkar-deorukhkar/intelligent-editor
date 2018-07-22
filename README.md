@@ -1,4 +1,4 @@
-# my-text-editor
+# intelligent-editor
 Hi,
 
 This is a intelligent text editor designed in python using tkinter module.
