@@ -1,5 +1,4 @@
-# Omkar Deorukhkar
-
+#~ Omkar Deorukhkar
 from tkinter import *
 from tkinter import filedialog
 import speech_recognition as sr
@@ -19,7 +18,7 @@ root.title("Intelligent-Editor")
 root.configure(background='black')
 root.minsize(width=500, height=500)
 root.maxsize(width=500, height=500)
-root.wm_iconbitmap("magichat.ico")
+#root.wm_iconbitmap("magichat.ico")
 
 txt = Text(root, width=500, height=500, background='gray20', foreground='floral white',font='Arial 14 bold')
 txt.pack()
