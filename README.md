@@ -9,6 +9,8 @@ The notable features of this editor are-
 
 **Narration (Text to Speech)
 
+**English Speech to Hindi Text Convertor.
+
 New File, Save etc normal text editor functions.
 Development Ongoing...
 
